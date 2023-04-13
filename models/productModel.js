@@ -22,96 +22,6 @@ const Product = require('../schemas/productSchema');
       .catch(() => res.status(500).json({ message: 'Someting went wrong when adding the product'}))
   }
 
-
-
-// exports.createNewProduct = (req, res) => {
-
-//   const name = req.body.name
-
-//   if(!name) {
-//     res.status(400).json({
-//       message: 'You need to enter a name'
-//     })
-//     return
-//   }
-
-//   Product.create({ name })
-//     .then((product) => {
-//       res.status(201).json(product)
-//     })
-//     .catch(err => {
-//       res.status(500).json({
-//         message: 'something went wrong when adding a name',
-//       })
-//     })
-
-
-
-// const description = req.body.description
-
-// if(!description) {
-//   res.status(400).json({
-//     message: 'You need to enter a description'
-//   })
-//   return
-// }
-
-// Product.create({ description })
-//   .then((product) => {
-//     res.status(201).json(product)
-//   })
-//   .catch(err => {
-//     res.status(500).json({
-//       message: 'something went wrong when adding a description',
-//     })
-//   })
-
-
-//   const price = req.body.price
-
-// if(!price) {
-//   res.status(400).json({
-//     message: 'You need to enter a price'
-//   })
-//   return
-// }
-
-// Product.create({ price })
-//   .then((product) => {
-//     res.status(201).json(product)
-//   })
-//   .catch(err => {
-//     res.status(500).json({
-//       message: 'something went wrong when adding a price',
-//     })
-//   })
-
-
-  
-
-// const imageUrl = req.body.imageUrl
-
-// if(!imageUrl) {
-//   res.status(400).json({
-//     message: 'You need to enter a imageUrl'
-//   })
-//   return
-// }
-
-// Product.create({ imageUrl })
-//   .then((product) => {
-//     res.status(201).json(product)
-//   })
-//   .catch(err => {
-//     res.status(500).json({
-//       message: 'something went wrong when adding a imageUrl',
-//     })
-//   })
-
-
-// }
-
-
 /*
   GET /api/product
   Get a list of all the products
@@ -129,9 +39,29 @@ exports.getProducts = (req, res) => {
     })
 }
 
+//get product by id
+
+exports.getProductById = (req, res) => {
+
+  Product.findById(req.params.id)
+    .then(product => {
+      if(!product) {
+        res.status(404).json({ message: 'could not find that product'})
+        return
+      }
+
+      res.status(200).json( product ) 
+    })
+    .catch(() => {
+      res.status(500).json({
+        message: 'Someting went wrong'
+      })
+    })
+  }
+
+
+//PUT
 exports.updateProduct = (req, res) => {
-
-
 
   Product.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(product => {
@@ -149,7 +79,6 @@ exports.updateProduct = (req, res) => {
     })
 
 }
-
 
 /*
   DELETE /api/product/:id

@@ -8,6 +8,8 @@ const productModel = require('../models/productModel')
 router.post('/', productModel.createNewProduct);
 //Read/Get
 router.get('/', productModel.getProducts);
+//Get by id
+router.get('/:id', productModel.getProductById);
 //Update PUT - PATCH
 router.put('/:id', productModel.updateProduct);
 //Delete
