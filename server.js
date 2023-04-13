@@ -1,11 +1,11 @@
-const app = require('./app')
+const app = require('./app');
 const mongoose = require('mongoose');
-require('dotenv').config()
+require('dotenv').config();
 
+const PORT = process.env.PORT || 9999
 
-app.listen(process.env.PORT)
-
+app.listen(PORT, () => console.log('server running on ' + PORT))
 
 mongoose.connect(process.env.MONGO_URI)
-   .then(console.log('DB connected'))
-   .catch((err) => console.log(err))
+  .then(() => console.log('connected to db'))
+  .catch(err => console.log(err.message))
