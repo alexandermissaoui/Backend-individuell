@@ -1,11 +1,10 @@
 const Product = require('../schemas/productSchema');
 
+
 /*
-  POST /api/products
+  POST /api/product
   Creates a new product
  */
-
-
   exports.createNewProduct = (req, res) => {
     const { name, description, price, imageUrl } = req.body;
   
@@ -16,14 +15,14 @@ const Product = require('../schemas/productSchema');
       return
     }
   
-  
     Product.create({ name, description, price, imageUrl })
       .then(data => res.status(201).json(data))
       .catch(() => res.status(500).json({ message: 'Someting went wrong when adding the product'}))
   }
 
+
 /*
-  GET /api/product
+  GET
   Get a list of all the products
 */
 exports.getProducts = (req, res) => {
@@ -39,8 +38,11 @@ exports.getProducts = (req, res) => {
     })
 }
 
-//get product by id
 
+/*
+  GET
+  Get product by id
+*/
 exports.getProductById = (req, res) => {
 
   Product.findById(req.params.id)
@@ -60,7 +62,10 @@ exports.getProductById = (req, res) => {
   }
 
 
-//PUT
+/*
+  PUT
+  Get product by id and update the product
+*/
 exports.updateProduct = (req, res) => {
 
   Product.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -80,8 +85,10 @@ exports.updateProduct = (req, res) => {
 
 }
 
+
 /*
-  DELETE /api/product/:id
+  DELETE
+  Get product by id and delete
 */
 exports.deleteProduct = (req, res) => {
 
@@ -99,5 +106,4 @@ exports.deleteProduct = (req, res) => {
         message: 'Someting went wrong when deleteing the product'
       })
     })
-
 }
